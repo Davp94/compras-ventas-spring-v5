@@ -1,0 +1,31 @@
+@ComprasVentas_HOST = http://localhost:9500
+
+
+### Listar Categorias
+GET {{ComprasVentas_HOST}}/categorias
+
+### Get Categoria por ID
+GET {{ComprasVentas_HOST}}/categorias/2
+
+
+### Crear Categorias
+POST {{ComprasVentas_HOST}}/categorias
+Content-Type: application/json
+
+{
+    "nombre": "Categoria2",
+    "descripcion": "Descripcion de la categoria 2"
+}
+
+### Crear Categorias
+PUT {{ComprasVentas_HOST}}/categorias/2
+Content-Type: application/json
+
+{
+    "nombre": "Categoria2 upd",
+    "descripcion": "Descripcion de la categoria 2 upd"
+}
+
+### DELETE Categorias
+DELETE {{ComprasVentas_HOST}}/categorias/2
+Content-Type: application/json

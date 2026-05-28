@@ -24,17 +24,17 @@ public class CategoriaController {
     @Autowired
     private ICategoriaService categoriaService;
 
-    @GetMapping
+    @GetMapping   // - /categorias
     public List<CategoriaDto> listarCategorias() {
         return categoriaService.listarCategorias();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id}")   // - /categorias/XXX
     public CategoriaDto buscarCategoriaPorId(@PathVariable Integer id) {
         return categoriaService.obtenerCategoriaPorId(id); // - /categorias/100
     }
 
-    @PostMapping
+    @PostMapping       // - /categorias
     public CategoriaDto crearCategoria(@RequestBody CreateCategoriaDto categoria) {
         return categoriaService.crearCategoria(categoria);
     }
