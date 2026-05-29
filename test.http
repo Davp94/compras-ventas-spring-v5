@@ -29,3 +29,21 @@ Content-Type: application/json
 ### DELETE Categorias
 DELETE {{ComprasVentas_HOST}}/categorias/2
 Content-Type: application/json
+
+### Crear Usuario
+
+POST {{ComprasVentas_HOST}}/usuarios
+Content-Type: application/json
+
+{
+    "username": "usuario1",
+    "password": "passworD123.",
+    "correo": "test@testcom",
+    "nombres": "dasdsa sadsadsad",
+    "apellidos": "dasdsa dsadsadsad",
+    "fechaNacimiento": "01/01/1999",
+    "genero": "Masculino",
+    "telefono": "",
+    "direccion": "asdasd asdasd asdasd",
+    "nacionalidad": "dsadsadsadsa"
+}
