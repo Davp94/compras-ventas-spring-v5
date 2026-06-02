@@ -1,7 +1,10 @@
 package com.blumbit.compras_ventas.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,9 +30,14 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    @GetMapping("path")
-    public String getMethodName(@RequestParam String param) {
-        return new String();
+    @GetMapping
+    public  ResponseEntity<List<UsuarioDto>>  getAllUsuarios() {
+        return ResponseEntity.ok(usuarioService.getAllUsuarios());
+    }
+
+    @GetMapping("/{id}")
+    public  ResponseEntity<UsuarioDto>  GetusuarioById(@PathVariable Integer id) {
+        return ResponseEntity.ok(usuarioService.getUsuarioById(id));
     }
 
     @PostMapping

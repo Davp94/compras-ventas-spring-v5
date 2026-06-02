@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.blumbit.compras_ventas.entity.Persona;
 import com.blumbit.compras_ventas.entity.Usuario;
+import com.blumbit.compras_ventas.validation.UniqueName;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -25,6 +26,7 @@ public class CreateUsuarioDto {
 
    @NotBlank(message = "El nombre de usuario es requerido") 
    @Size(max=50, message = "El username debe tener maximo 50 caracteres")
+   @UniqueName(fieldName = "username")
    private String username;
 
    @NotBlank(message = "El correo electrónico es requerido")
