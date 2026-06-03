@@ -37,8 +37,8 @@ Content-Type: application/json
 
 {
     "username": "usuario1",
-    "password": "passworD123.",
-    "correo": "test@testcom",
+    "password": "password123",
+    "correo": "testtestcom",
     "nombres": "dasdsa sadsadsad",
     "apellidos": "dasdsa dsadsadsad",
     "fechaNacimiento": "01/01/1999",
@@ -47,3 +47,6 @@ Content-Type: application/json
     "direccion": "asdasd asdasd asdasd",
     "nacionalidad": "dsadsadsadsa"
 }
+
+### Get Categoria por ID
+GET {{ComprasVentas_HOST}}/usuarios/2

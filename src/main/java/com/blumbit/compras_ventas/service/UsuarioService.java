@@ -10,6 +10,7 @@ import com.blumbit.compras_ventas.dto.CreateUsuarioDto;
 import com.blumbit.compras_ventas.dto.UsuarioDto;
 import com.blumbit.compras_ventas.entity.Persona;
 import com.blumbit.compras_ventas.entity.Usuario;
+import com.blumbit.compras_ventas.exception.ResourceNotFoundException;
 import com.blumbit.compras_ventas.repository.PersonaRepository;
 import com.blumbit.compras_ventas.repository.UsuarioRepository;
 
@@ -37,7 +38,7 @@ public class UsuarioService implements IUsuarioService {
         return usuarioRepository.findById(id).map(usuario -> {
             Persona persona = personaRepository.findByUsuario(usuario);
             return UsuarioDto.fromEntityUsuario(usuario, persona);
-        }).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        }).orElseThrow(() -> new ResourceNotFoundException("Usuario", id));
     }
 
     @Transactional

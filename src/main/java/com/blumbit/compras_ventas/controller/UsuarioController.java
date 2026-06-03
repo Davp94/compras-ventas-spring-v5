@@ -17,18 +17,15 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
-    private final IUsuarioService usuarioService;
-
-    public UsuarioController(IUsuarioService usuarioService) {
-        this.usuarioService = usuarioService;
-    }
+    @Autowired
+    private IUsuarioService usuarioService;
 
     @GetMapping
     public  ResponseEntity<List<UsuarioDto>>  getAllUsuarios() {

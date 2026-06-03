@@ -1,0 +1,16 @@
+package com.blumbit.compras_ventas.exception;
+
+import lombok.Getter;
+
+@Getter
+public abstract class DomainException extends RuntimeException{
+
+    private int statusCode;
+    private String errorCode;
+
+    public DomainException(String message, int statusCode, String errorCode ) {
+        super(message);
+        this.statusCode = statusCode;
+        this.errorCode = errorCode;
+    }
+}
