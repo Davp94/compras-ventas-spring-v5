@@ -28,7 +28,7 @@ public class UniqueNameValidator implements ConstraintValidator<UniqueName, Stri
         }
 
         boolean isUnique = uniqueNameChecker.isUniqueName(value);
-        if(isUnique) {
+        if(!isUnique) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("El valor del '" + fieldName + "' ya existe")
             .addConstraintViolation();

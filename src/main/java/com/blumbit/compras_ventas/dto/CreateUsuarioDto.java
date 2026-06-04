@@ -16,17 +16,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter
 @Setter
 @Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateUsuarioDto {
 
    @NotBlank(message = "El nombre de usuario es requerido") 
    @Size(max=50, message = "El username debe tener maximo 50 caracteres")
-   @UniqueName(fieldName = "username")
+//    @UniqueName(fieldName = "username")
    private String username;
 
    @NotBlank(message = "El correo electrónico es requerido")

@@ -10,13 +10,16 @@ import com.blumbit.compras_ventas.dto.CreateUsuarioDto;
 import com.blumbit.compras_ventas.dto.UsuarioDto;
 import com.blumbit.compras_ventas.entity.Persona;
 import com.blumbit.compras_ventas.entity.Usuario;
+import com.blumbit.compras_ventas.exception.ConflictException;
 import com.blumbit.compras_ventas.exception.ResourceNotFoundException;
 import com.blumbit.compras_ventas.repository.PersonaRepository;
 import com.blumbit.compras_ventas.repository.UsuarioRepository;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 public class UsuarioService implements IUsuarioService {
 
     @Autowired
@@ -35,18 +38,26 @@ public class UsuarioService implements IUsuarioService {
 
     @Override
     public UsuarioDto getUsuarioById(Integer id) {
-        return usuarioRepository.findById(id).map(usuario -> {
+        try {
+            log.info("Buscando usuario con id: {}", id);
+            return usuarioRepository.findById(id).map(usuario -> {
             Persona persona = personaRepository.findByUsuario(usuario);
             return UsuarioDto.fromEntityUsuario(usuario, persona);
-        }).orElseThrow(() -> new ResourceNotFoundException("Usuario", id));
+            }).orElseThrow(() -> new ResourceNotFoundException("Usuario", id));
+        } catch (ResourceNotFoundException e) {
+            throw e;
+        }
+       
     }
 
     @Transactional
     @Override
     public UsuarioDto createusuario(CreateUsuarioDto createUsuarioDto) {
         if(isEmailExist(createUsuarioDto.getCorreo())){
+            log.error("El correo electronico ya está en uso");
             throw new RuntimeException("El correo electronico ya está en uso");
         }
+        
         Usuario usuario = CreateUsuarioDto.toEntityUsuario(createUsuarioDto);
         usuario = usuarioRepository.save(usuario);
         Persona persona = CreateUsuarioDto.toEntityPersona(createUsuarioDto, usuario);

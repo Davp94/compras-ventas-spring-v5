@@ -1,5 +1,4 @@
 package com.blumbit.compras_ventas.controller;
-
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -17,12 +16,16 @@ import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
 @RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
 
     @Autowired
     private IUsuarioService usuarioService;
@@ -39,6 +42,7 @@ public class UsuarioController {
 
     @PostMapping
     public ResponseEntity<UsuarioDto> createUsuario(@Valid @RequestBody CreateUsuarioDto createUsuarioDto) {
+        logger.info("Datos recibidos para creacion de usuario: {}", createUsuarioDto.toString());
         return ResponseEntity.ok(usuarioService.createusuario(createUsuarioDto));
     }
     
