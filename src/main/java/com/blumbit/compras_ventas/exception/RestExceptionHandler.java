@@ -34,7 +34,7 @@ public class RestExceptionHandler {
         .message(x.getMessage())
         .timestamp(new Date().toString())
         .path(req.getRequestURI())
-        .build(), new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+        .build(), new HttpHeaders(), HttpStatus.valueOf(x.getStatusCode()));
     }
 
     // @ExceptionHandler(Exception.class)

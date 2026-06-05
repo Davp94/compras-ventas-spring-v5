@@ -2,6 +2,7 @@ package com.blumbit.compras_ventas.dto;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import com.blumbit.compras_ventas.entity.Persona;
 import com.blumbit.compras_ventas.entity.Usuario;
@@ -9,6 +10,7 @@ import com.blumbit.compras_ventas.validation.UniqueName;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -68,6 +70,9 @@ public class CreateUsuarioDto {
    @NotBlank(message = "La nacionalidad es requerido")
    @Size(max=50, message = "La nacionalidad debe tener maximo 50 caracteres")
    private String nacionalidad;
+
+   @NotEmpty(message = "Debe asignar al menos un rol al usuario")
+   private List<Integer> roles;
 
    //TODO add documentos
 

@@ -10,46 +10,38 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Table(name="usuarios")
-public class Usuario {
-
+@Entity
+@Table(name = "roles")
+public class Rol {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(unique=true, nullable = false, length = 50)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column(unique=true, nullable = false, length = 255)
-    private String email;
-
-    @Column(nullable = false, length = 255)
-    private String password;
+    @Column(length = 200)
+    private String descripcion;
 
     @ManyToMany
     @JoinTable(
-        name = "usuarios_roles",
-        joinColumns = @JoinColumn(name= "usuario_id"),
-        inverseJoinColumns = @JoinColumn(name = "rol_id")
+        name = "roles_permisos",
+        joinColumns = @JoinColumn(name= "rol_id"),
+        inverseJoinColumns = @JoinColumn(name = "permiso_id")
     )
-    private List<Rol> roles;
+    private List<Permiso> permisos;
 
-    //BIDIRECCIONALIDAD
-    @OneToOne(mappedBy = "usuario")
-    private Persona persona;
-
+    @ManyToMany(mappedBy = "roles")
+    private List<Usuario> usuarios;
 }

@@ -49,6 +49,7 @@ public class UsuarioDto {
         .direccion(persona.getDireccion())
         .nacionalidad(persona.getNacionalidad())
         .fechaNacimiento(persona.getFechaNacimiento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+        .roles(usuario.getRoles().stream().map(rol->rol.getId()).toList())
         .build();
     }
 }
