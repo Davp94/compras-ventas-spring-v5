@@ -26,6 +26,12 @@ logging:
         com.blumbit.compras_ventas: DEBUG
         org.springframework.web: WARN
         org.hibernate: WARN
+application:
+    jwt:
+        secret-key: mysecretkey
+        access-token-expiration: 90000 # 15 minutes en milisegundos
+        refresh-token-expiration: 604800000 # 7 días en milisegundos
+        
 
          
 
