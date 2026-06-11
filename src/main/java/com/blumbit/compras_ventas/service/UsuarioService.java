@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.blumbit.compras_ventas.dto.CreateUsuarioDto;
@@ -32,6 +33,9 @@ public class UsuarioService implements IUsuarioService {
 
     @Autowired
     private RolRepository rolRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public List<UsuarioDto> getAllUsuarios() {
@@ -65,6 +69,7 @@ public class UsuarioService implements IUsuarioService {
 
 
         Usuario usuario = CreateUsuarioDto.toEntityUsuario(createUsuarioDto);
+                usuario.setPassword(passwordEncoder.encode(createUsuarioDto.getPassword()));
                 usuario.setRoles(roles);
         usuario = usuarioRepository.save(usuario);
         Persona persona = CreateUsuarioDto.toEntityPersona(createUsuarioDto, usuario);
@@ -83,7 +88,7 @@ public class UsuarioService implements IUsuarioService {
         -> new RuntimeException("Usuario no encontrado"));
         usuarioRetrieved.setRoles(rolRepository.findAllById(createUsuarioDto.getRoles()));
         usuarioRetrieved.setEmail(createUsuarioDto.getCorreo());
-        usuarioRetrieved.setPassword(createUsuarioDto.getPassword());
+        usuarioRetrieved.setPassword(passwordEncoder.encode(createUsuarioDto.getPassword()));
         usuarioRetrieved.setNombre(createUsuarioDto.getNombres());
         Persona personaRetrieved = personaRepository.findByUsuario(usuarioRetrieved);
         personaRetrieved.setNombres(createUsuarioDto.getNombres());

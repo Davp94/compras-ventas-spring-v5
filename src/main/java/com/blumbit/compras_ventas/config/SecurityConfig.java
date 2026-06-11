@@ -32,8 +32,8 @@ public class SecurityConfig {
                     .csrf(csrf -> csrf.disable())
                     .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("/productos").hasAnyAuthority("VER_PRODUCTOS", "ROLE_ENCARGADO_ALMACEN") 
-                        .requestMatchers("/ventas").hasAnyAuthority("VER_VENTAS", "ROLE_VENDEDOR")
+                        .requestMatchers("/productos").hasAnyAuthority("LISTAR_PRODUCTOS", "ROLE_ENCARGADO_ALMACEN") 
+                        .requestMatchers("/ventas").hasAnyAuthority("ROL_ADMIN")
                         .anyRequest().authenticated()  
                     )
                     .cors(Customizer.withDefaults())

@@ -51,7 +51,7 @@ public class AppConfig {
             List<GrantedAuthority> authorities = usuario.getRoles().stream()
                 .flatMap(rol -> {
                     Stream.Builder<GrantedAuthority> builder = Stream.builder();
-                    builder.add(new SimpleGrantedAuthority("ROL_"+rol.getNombre()));
+                    builder.add(new SimpleGrantedAuthority("ROLE_"+rol.getNombre()));
                     rol.getPermisos().stream().map(permiso -> new SimpleGrantedAuthority(permiso.getNombre()))
                     .forEach(builder::add);
                     return builder.build();
