@@ -15,6 +15,7 @@ import com.blumbit.compras_ventas.dto.ProductoFilterCriteria;
 import com.blumbit.compras_ventas.dto.ProductoRequest;
 import com.blumbit.compras_ventas.dto.ProductoResponse;
 import com.blumbit.compras_ventas.entity.Producto;
+import com.blumbit.compras_ventas.repository.AlmacenProductoRepository;
 import com.blumbit.compras_ventas.repository.CategoriaRepository;
 import com.blumbit.compras_ventas.repository.ProductoRepository;
 import com.blumbit.compras_ventas.repository.specification.ProductoSpecification;
@@ -28,6 +29,10 @@ public class ProductoService implements IProductoService {
     private final ProductoRepository productoRepository;
 
     private final CategoriaRepository categoriaRepository;
+
+    private final AlmacenProductoRepository almacenProductoRepository;
+
+    private final IFileService fileService;
 
     @Override
     public PageableResponse<ProductoResponse> getProductosPagination(
@@ -55,20 +60,30 @@ public class ProductoService implements IProductoService {
             .totalPages(productoPage.getTotalPages())
             .build();
         } catch (Exception e) {
-            throw new RuntimeException("error paginacion productos")
+            throw new RuntimeException("error paginacion productos");
         }
     }
 
     @Override
-    public List<ProductoResponse> createProducto(ProductoRequest productoRequest) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createProducto'");
+    public ProductoResponse createProducto(ProductoRequest productoRequest) {
+        try {
+            Producto productoToCreate = ProductoRequest.toEntity(productoRequest);
+            productoToCreate.setCategoria(categoriaRepository.findById(productoRequest.getCategoriaId()).orElse(null));
+            String createdFilePath = fileService.createFile(productoRequest.getFile());
+            productoToCreate.setImagen(createdFilePath);
+            return ProductoResponse.fromEntity(productoRepository.save(productoToCreate));
+
+        } catch (Exception e) {
+            throw e;
+        }
+        
     }
 
     @Override
     public List<ProductoResponse> getProductosByAlmacen(Integer almacenId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getProductosByAlmacen'");
+        return almacenProductoRepository.findByAlmacenId(almacenId).stream()
+        .map(almacenProducto -> ProductoResponse.fromEntity(almacenProducto.getProducto()))
+        .toList();
     }
 
 

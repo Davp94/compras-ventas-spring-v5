@@ -19,9 +19,14 @@ public class Sucursal {
     @Column(nullable = false, length = 200)
     private String nombre;
 
-    @Column(length = 500)
-    private String descripcion;
+    @Column(nullable = false, length = 200)
+    private String direccion;
 
-    // Getters and Setters
+    @Column(nullable = false, length = 20)
+    private String telefono;
+
+    @Column(nullable = false, length = 50)
+    private String ciudad;
+
 
 }

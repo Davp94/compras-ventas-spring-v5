@@ -12,7 +12,7 @@ public interface IProductoService {
 
     PageableResponse<ProductoResponse> getProductosPagination(PageableRequest<ProductoFilterCriteria> pageableRequest);
 
-    List<ProductoResponse> createProducto(ProductoRequest productoRequest);
+    ProductoResponse createProducto(ProductoRequest productoRequest);
 
     List<ProductoResponse> getProductosByAlmacen(Integer almacenId);
 

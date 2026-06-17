@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.blumbit.compras_ventas.entity.Producto;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,5 +23,14 @@ public class ProductoRequest {
     private BigDecimal precioVentaActual;
     private String marca;
     private MultipartFile file;
-    private String categoriaId;
+    private Integer categoriaId;
+
+    public static Producto toEntity(ProductoRequest productoRequest) {
+        return Producto.builder()
+        .nombre(productoRequest.getNombre())
+        .descripcion(productoRequest.getDescripcion())
+        .precioVentaActual(productoRequest.getPrecioVentaActual())
+        .marca(productoRequest.getMarca())
+        .build();
+    }
 }
