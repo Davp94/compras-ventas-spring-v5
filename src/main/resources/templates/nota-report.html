@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .header {
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <div class="nota-title">Nota - <span th:text="${nota.id}"></span></div>
+            <div>Fecha: <span th:text="${nota.fecha}"></span></div>
+            <div>Usuario: <span th:text="${nota.usuario.nombre}"></span></div>
+        </div>
+        <div class="header-right">
+            <img th:src="@{classpath:/static/logo-blumbit-color1.png}" alt="blumbit Logo" 
+            class="logo"></img>
+        </div>
+    </div>
+    <div class="info-section">
+        <h3>Cliente/Proveedor</h3>
+        <p>Nombre: <span th:text="${nota.clienteProveedor.razonSocial}"></span></p>
+        <p>Documento: <span th:text="${nota.clienteProveedor.nroIdentificacion}"></span></p>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="movimiento : ${movimientos}">
+                <td th:text="${movimiento.producto.nombre}"></td>
+                <td th:text="${movimiento.cantidad}"></td>
+                <td th:text="${movimiento.precio}"></td>
+                <td th:text="${movimiento.cantidad * movimiento.precio}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        Total: <span th:text="${nota.total}"></span>
+    </div>
+</body>
+</html>
