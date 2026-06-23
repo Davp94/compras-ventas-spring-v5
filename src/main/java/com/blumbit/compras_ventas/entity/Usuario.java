@@ -48,6 +48,14 @@ public class Usuario {
     )
     private List<Rol> roles;
 
+    @ManyToMany
+    @JoinTable(
+        name = "sucursal_usuario",
+        joinColumns = @JoinColumn(name= "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "sucursal_id")
+    )
+    private List<Sucursal> sucursales;
+
     //BIDIRECCIONALIDAD
     @OneToOne(mappedBy = "usuario")
     private Persona persona;

@@ -2,6 +2,7 @@ package com.blumbit.compras_ventas.entity;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -55,4 +57,7 @@ public class Persona {
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name="usuario_id", referencedColumnName = "id")
     private Usuario usuario;
+
+    @OneToMany(mappedBy = "persona")
+    private List<Documento> documentos;
 }

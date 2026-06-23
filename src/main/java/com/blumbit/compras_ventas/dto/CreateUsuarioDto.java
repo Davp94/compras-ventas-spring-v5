@@ -74,7 +74,7 @@ public class CreateUsuarioDto {
    @NotEmpty(message = "Debe asignar al menos un rol al usuario")
    private List<Integer> roles;
 
-   //TODO add documentos
+   private List<CreateDocumentoDto> documentos;
 
     public static Usuario toEntityUsuario(CreateUsuarioDto createUsuarioDto){
         return Usuario.builder()

@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.blumbit.compras_ventas.dto.CreateDocumentoDto;
 import com.blumbit.compras_ventas.dto.CreateUsuarioDto;
+import com.blumbit.compras_ventas.dto.DocumentoDto;
 import com.blumbit.compras_ventas.dto.UsuarioDto;
+import com.blumbit.compras_ventas.entity.Documento;
 import com.blumbit.compras_ventas.entity.Persona;
 import com.blumbit.compras_ventas.entity.Rol;
 import com.blumbit.compras_ventas.entity.Usuario;
@@ -36,6 +39,9 @@ public class UsuarioService implements IUsuarioService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private IFileService fileService;
 
     @Override
     public List<UsuarioDto> getAllUsuarios() {
@@ -74,7 +80,13 @@ public class UsuarioService implements IUsuarioService {
         usuario = usuarioRepository.save(usuario);
         Persona persona = CreateUsuarioDto.toEntityPersona(createUsuarioDto, usuario);
         persona = personaRepository.save(persona);
-        //TODO add documento save
+        for (CreateDocumentoDto documentoDto : createUsuarioDto.getDocumentos()) {
+            Documento documentoToCreate = new Documento();
+            documentoToCreate.setArchivo(fileService.createFile(documentoDto.getArchivo()));
+            documentoToCreate.setDetalle(documentoDto.getDetalle());
+            documentoToCreate.setEstado(true);
+            documentoToCreate.setTipo(documentoDto.getTipo());
+        }
         return UsuarioDto.fromEntityUsuario(usuario, persona);
     }
 

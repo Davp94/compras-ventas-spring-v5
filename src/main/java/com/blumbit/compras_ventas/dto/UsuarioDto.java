@@ -37,7 +37,7 @@ public class UsuarioDto {
 
     private List<Integer> roles;
 
-    //TOdo add documentos
+    private List<DocumentoDto> documentos;
 
     public static UsuarioDto fromEntityUsuario(Usuario usuario, Persona persona){
         return UsuarioDto.builder()
@@ -50,6 +50,7 @@ public class UsuarioDto {
         .nacionalidad(persona.getNacionalidad())
         .fechaNacimiento(persona.getFechaNacimiento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
         .roles(usuario.getRoles().stream().map(rol->rol.getId()).toList())
+        .documentos(persona.getDocumentos().stream().map(DocumentoDto::fromEntity).toList())
         .build();
     }
 }
