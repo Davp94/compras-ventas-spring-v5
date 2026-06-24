@@ -28,8 +28,8 @@ logging:
         org.hibernate: WARN
 application:
     jwt:
-        secret-key: mysecretkey
-        access-token-expiration: 90000 # 15 minutes en milisegundos
+        secret-key: 276vu6fSbqNzoCwIKavKyzfsKgBAGE7YMzQja2j03Um
+        access-token-expiration: 900000 # 15 minutes en milisegundos
         refresh-token-expiration: 604800000 # 7 días en milisegundos
 storage:
     location: /home/david/Documents/projects/blumbit/spring-backendV5/compras-ventas/images

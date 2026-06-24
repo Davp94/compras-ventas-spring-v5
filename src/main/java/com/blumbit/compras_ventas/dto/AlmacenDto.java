@@ -31,17 +31,4 @@ public class AlmacenDto {
 
     private String sucursalNombre;
 
-    public static AlmacenDto fromEntity(Almacen almacen) {
-        return AlmacenDto.builder()
-                .id(almacen.getId())
-                .nombre(almacen.getNombre())
-                .codigo(almacen.getCodigo())
-                .descripcion(almacen.getDescripcion())
-                .direccion(almacen.getDireccion())
-                .telefono(almacen.getTelefono())
-                .ciudad(almacen.getCiudad())
-                .sucursalId(almacen.getSucursal().getId())
-                .sucursalNombre(almacen.getSucursal().getNombre())
-                .build();
-    }
 }

@@ -136,7 +136,7 @@ public class DataSeeder implements ApplicationRunner {
                 sucursales.add(buildSucursal(
                     String.format("Sucursal %d", i),
                     faker.address().streetAddress(),
-                    faker.phoneNumber().phoneNumber(),
+                    faker.phoneNumber().phoneNumber().substring(8),
                     faker.address().city()
                 ));
             }
@@ -155,7 +155,7 @@ public class DataSeeder implements ApplicationRunner {
                     .codigo(String.format("ALM-%03d", i))
                     .descripcion(faker.lorem().sentence(8))
                     .direccion(faker.address().streetAddress())
-                    .telefono(faker.phoneNumber().cellPhone())
+                    .telefono(faker.phoneNumber().cellPhone().substring(8))
                     .ciudad(faker.address().city())
                     .sucursal(sucursal)
                     .build());
@@ -182,7 +182,7 @@ public class DataSeeder implements ApplicationRunner {
         List<Producto> productos = new ArrayList<>();
         if (productoRepository.count() == 0) {
             productos = new ArrayList<>();
-            for (int i = 1; i <= 1000; i++) {
+            for (int i = 1; i <= 100; i++) {
                 Categoria categoria = categorias.get(random.nextInt(categorias.size()));
                 BigDecimal price = BigDecimal.valueOf(1 + random.nextDouble() * 199)
                     .setScale(2, RoundingMode.HALF_UP);

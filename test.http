@@ -1,52 +1,238 @@
 @ComprasVentas_HOST = http://localhost:9500
+@REFRESH_TOKEN = MyRToken
+### Health Check
+GET {{ComprasVentas_HOST}}/health
 
+### Auth - Login
+POST {{ComprasVentas_HOST}}/auth/login
+Content-Type: application/json
 
-### Listar Categorias
+{
+  "username": "admin",
+  "password": "Admin123!"
+}
+
+### Auth - Refresh Token
+POST {{ComprasVentas_HOST}}/auth/refresh-token
+authentication: Bearer {{REFRESH_TOKEN}}
+
+### Categorias - Listar
 GET {{ComprasVentas_HOST}}/categorias
 
-### Get Categoria por ID
-GET {{ComprasVentas_HOST}}/categorias/2
+### Categorias - Obtener por ID
+GET {{ComprasVentas_HOST}}/categorias/1
 
-
-### Crear Categorias
+### Categorias - Crear
 POST {{ComprasVentas_HOST}}/categorias
 Content-Type: application/json
 
 {
-    "nombre": "Categoria2",
-    "descripcion": "Descripcion de la categoria 2"
+  "nombre": "Categoria prueba",
+  "descripcion": "Descripcion de categoria prueba"
 }
 
-### Crear Categorias
-PUT {{ComprasVentas_HOST}}/categorias/2
+### Categorias - Actualizar
+PUT {{ComprasVentas_HOST}}/categorias/1
 Content-Type: application/json
 
 {
-    "nombre": "Categoria2 upd",
-    "descripcion": "Descripcion de la categoria 2 upd"
+  "nombre": "Categoria prueba actualizada",
+  "descripcion": "Descripcion actualizada"
 }
 
-### DELETE Categorias
-DELETE {{ComprasVentas_HOST}}/categorias/2
-Content-Type: application/json
+### Categorias - Eliminar
+DELETE {{ComprasVentas_HOST}}/categorias/1
 
-### Crear Usuario
+### Usuarios - Listar
+GET {{ComprasVentas_HOST}}/usuarios
 
+### Usuarios - Obtener por ID
+GET {{ComprasVentas_HOST}}/usuarios/1
+
+### Usuarios - Crear
 POST {{ComprasVentas_HOST}}/usuarios
 Content-Type: application/json
 
 {
-    "username": "usuario1",
-    "password": "passworD123*",
-    "correo": "testtestcom",
-    "nombres": "dasdsa sadsadsad",
-    "apellidos": "dasdsa dsadsadsad",
-    "fechaNacimiento": "01/01/1999",
-    "genero": "Masculino",
-    "telefono": "",
-    "direccion": "asdasd asdasd asdasd",
-    "nacionalidad": "dsadsadsadsa"
+  "username": "usuarioPrueba",
+  "password": "Passw0rd!23",
+  "correo": "usuario.prueba@example.com",
+  "nombres": "Usuario",
+  "apellidos": "Prueba",
+  "fechaNacimiento": "01/01/1990",
+  "genero": "Masculino",
+  "telefono": "555123456",
+  "direccion": "Calle Falsa 123",
+  "nacionalidad": "Argentina",
+  "roles": [1]
 }
 
-### Get Usuario por ID
-GET {{ComprasVentas_HOST}}/usuarios/2
+### Productos - Crear (form-urlencoded)
+POST {{ComprasVentas_HOST}}/productos
+Content-Type: application/x-www-form-urlencoded
+
+nombre=Producto%20Prueba&descripcion=Descripcion%20del%20producto&precioVentaActual=123.45&marca=MarcaPrueba&categoriaId=1
+
+### Productos - Buscar por almacen
+GET {{ComprasVentas_HOST}}/productos/almacen/1
+
+### Productos - Paginacion y filtro
+GET {{ComprasVentas_HOST}}/productos/paginacion?pageSize=10&pageNumber=1&sortField=id&sortOrder=asc&filterValue=&nombre=Producto%20Prueba&descripcion=&codigoBarra=&marca=MarcaPrueba&nombreCategoria=Categoria%20prueba
+
+### Almacenes - Listar
+GET {{ComprasVentas_HOST}}/almacenes
+
+### Almacenes - Obtener por ID
+GET {{ComprasVentas_HOST}}/almacenes/1
+
+### Almacenes - Crear
+POST {{ComprasVentas_HOST}}/almacenes
+Content-Type: application/json
+
+{
+  "nombre": "Almacen Prueba",
+  "codigo": "ALM-001",
+  "descripcion": "Almacen de prueba",
+  "direccion": "Av. Siempre Viva 742",
+  "telefono": "555987654",
+  "ciudad": "Ciudad Prueba",
+  "sucursalId": 1
+}
+
+### Almacenes - Actualizar
+PUT {{ComprasVentas_HOST}}/almacenes/1
+Content-Type: application/json
+
+{
+  "nombre": "Almacen Actualizado",
+  "codigo": "ALM-001",
+  "descripcion": "Almacen actualizado",
+  "direccion": "Av. Siempre Viva 742",
+  "telefono": "555987654",
+  "ciudad": "Ciudad Prueba",
+  "sucursalId": 1
+}
+
+### Almacenes - Eliminar
+DELETE {{ComprasVentas_HOST}}/almacenes/1
+
+### Permisos - Listar
+GET {{ComprasVentas_HOST}}/permisos
+
+### Permisos - Obtener por ID
+GET {{ComprasVentas_HOST}}/permisos/1
+
+### Permisos - Crear
+POST {{ComprasVentas_HOST}}/permisos
+Content-Type: application/json
+
+{
+  "nombre": "CREAR_PRODUCTOS",
+  "recurso": "/productos",
+  "action": "CREATE"
+}
+
+### Permisos - Actualizar
+PUT {{ComprasVentas_HOST}}/permisos/1
+Content-Type: application/json
+
+{
+  "nombre": "ACTUALIZAR_PRODUCTOS",
+  "recurso": "/productos",
+  "action": "UPDATE"
+}
+
+### Permisos - Eliminar
+DELETE {{ComprasVentas_HOST}}/permisos/1
+
+### Roles - Listar
+GET {{ComprasVentas_HOST}}/roles
+
+### Roles - Obtener por ID
+GET {{ComprasVentas_HOST}}/roles/1
+
+### Roles - Crear
+POST {{ComprasVentas_HOST}}/roles
+Content-Type: application/json
+
+{
+  "nombre": "ROL_PRUEBA",
+  "descripcion": "Rol de prueba",
+  "permisosIds": [1]
+}
+
+### Roles - Actualizar
+PUT {{ComprasVentas_HOST}}/roles/1
+Content-Type: application/json
+
+{
+  "nombre": "ROL_PRUEBA_ACTUALIZADO",
+  "descripcion": "Rol actualizado",
+  "permisosIds": [1]
+}
+
+### Roles - Eliminar
+DELETE {{ComprasVentas_HOST}}/roles/1
+
+### Sucursales - Listar
+GET {{ComprasVentas_HOST}}/sucursales
+
+### Sucursales - Obtener por ID
+GET {{ComprasVentas_HOST}}/sucursales/1
+
+### Sucursales - Crear
+POST {{ComprasVentas_HOST}}/sucursales
+Content-Type: application/json
+
+{
+  "nombre": "Sucursal Prueba",
+  "direccion": "Calle Central 100",
+  "telefono": "555111222",
+  "ciudad": "Ciudad Central",
+  "usuariosIds": [1]
+}
+
+### Sucursales - Actualizar
+PUT {{ComprasVentas_HOST}}/sucursales/1
+Content-Type: application/json
+
+{
+  "nombre": "Sucursal Prueba Actualizada",
+  "direccion": "Calle Central 100",
+  "telefono": "555111222",
+  "ciudad": "Ciudad Central",
+  "usuariosIds": [1]
+}
+
+### Sucursales - Eliminar
+DELETE {{ComprasVentas_HOST}}/sucursales/1
+
+### Nota - Listar
+GET {{ComprasVentas_HOST}}/nota?param=all
+
+### Nota - Crear
+POST {{ComprasVentas_HOST}}/nota
+Content-Type: application/json
+
+{
+  "tipoNota": "VENTA",
+  "impuestos": 10.50,
+  "descuentos": 5.00,
+  "observaciones": "Nota de prueba",
+  "usuarioId": 1,
+  "clienteProveedorId": 1,
+  "movimientos": [
+    {
+      "productoId": 1,
+      "almacenId": 1,
+      "cantidad": 2,
+      "tipoMovimiento": "VENTA",
+      "precioUnitarioCompra": 50.00,
+      "precioUnitarioVenta": 75.00,
+      "observaciones": "Movimiento de prueba"
+    }
+  ]
+}
+
+### Nota - Descargar reporte
+GET {{ComprasVentas_HOST}}/nota/1/report

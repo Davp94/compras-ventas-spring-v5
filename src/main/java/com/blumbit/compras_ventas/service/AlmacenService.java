@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.blumbit.compras_ventas.dto.AlmacenDto;
 import com.blumbit.compras_ventas.dto.CreateAlmacenDto;
+import com.blumbit.compras_ventas.dto.mapper.AlmacenMapper;
 import com.blumbit.compras_ventas.entity.Almacen;
 import com.blumbit.compras_ventas.entity.Sucursal;
 import com.blumbit.compras_ventas.exception.ConflictException;
@@ -24,10 +25,13 @@ public class AlmacenService implements IAlmacenService {
     @Autowired
     private SucursalRepository sucursalRepository;
 
+    @Autowired
+    private AlmacenMapper almacenMapper;
+
     @Override
     public List<AlmacenDto> listarAlmacenes() {
         return almacenRepository.findAll().stream()
-                .map(AlmacenDto::fromEntity)
+                .map(almacenMapper::toResponseDto)
                 .toList();
     }
 
@@ -35,14 +39,14 @@ public class AlmacenService implements IAlmacenService {
     public AlmacenDto obtenerAlmacenPorId(Integer id) {
         Almacen almacen = almacenRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Almacen", id));
-        return AlmacenDto.fromEntity(almacen);
+        return almacenMapper.toResponseDto(almacen);
     }
 
     @Override
     public AlmacenDto crearAlmacen(CreateAlmacenDto dto) {
         Sucursal sucursal = sucursalRepository.findById(dto.getSucursalId())
                 .orElseThrow(() -> new ResourceNotFoundException("Sucursal", dto.getSucursalId()));
-        Almacen almacen = new Almacen();
+        Almacen almacen = almacenMapper.toEntity(dto);
         almacen.setNombre(dto.getNombre());
         almacen.setCodigo(dto.getCodigo());
         almacen.setDescripcion(dto.getDescripcion());
@@ -51,7 +55,7 @@ public class AlmacenService implements IAlmacenService {
         almacen.setCiudad(dto.getCiudad());
         almacen.setSucursal(sucursal);
         try {
-            return AlmacenDto.fromEntity(almacenRepository.save(almacen));
+            return almacenMapper.toResponseDto(almacenRepository.save(almacen));
         } catch (DataIntegrityViolationException e) {
             throw new ConflictException("No se pudo crear el almacén");
         }
@@ -71,7 +75,7 @@ public class AlmacenService implements IAlmacenService {
         almacen.setCiudad(dto.getCiudad());
         almacen.setSucursal(sucursal);
         try {
-            return AlmacenDto.fromEntity(almacenRepository.save(almacen));
+            return almacenMapper.toResponseDto(almacenRepository.save(almacen));
         } catch (DataIntegrityViolationException e) {
             throw new ConflictException("No se pudo actualizar el almacén");
         }

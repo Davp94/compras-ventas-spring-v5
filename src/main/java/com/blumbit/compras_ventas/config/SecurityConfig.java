@@ -31,9 +31,13 @@ public class SecurityConfig {
             http
                     .csrf(csrf -> csrf.disable())
                     .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login").permitAll()
-                        .requestMatchers("/productos").hasAnyAuthority("LISTAR_PRODUCTOS", "ROLE_ENCARGADO_ALMACEN") 
-                        .requestMatchers("/ventas").hasAnyAuthority("ROL_ADMIN")
+                        .requestMatchers("/auth/login").permitAll()
+                        .requestMatchers("/v3/api-docs").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/sucursales").hasAnyAuthority("ROLE_RRHH") 
+                        .requestMatchers("/productos/**").hasAnyAuthority("LISTAR_PRODUCTOS", "ROLE_ENCARGADO_ALMACEN") 
+                        .requestMatchers("/roles").hasAnyAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated()  
                     )
                     .cors(Customizer.withDefaults())
