@@ -24,9 +24,16 @@ public class ProductoResponse {
     private String nombreCategoria;
 
     public static ProductoResponse fromEntity(Producto producto) {
+        if (producto == null) {
+            return null;
+        }
         return ProductoResponse.builder()
         .id(producto.getId())
         .nombre(producto.getNombre())
+        .descripcion(producto.getDescripcion())
+        .precioVentaActual(producto.getPrecioVentaActual())
+        .imagen(producto.getImagen())
+        .nombreCategoria(producto.getCategoria() != null ? producto.getCategoria().getNombre() : null)
         .build();
     }
 }

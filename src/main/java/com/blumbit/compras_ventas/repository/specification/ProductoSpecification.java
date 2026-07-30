@@ -47,6 +47,11 @@ public class ProductoSpecification {
                 predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.join("categoria").get("nombre")), 
                 "%"+criterials.getNombreCategoria().toLowerCase()+"%"));
             }
+            
+            if(criterials.getAlmacenId() != null && criterials.getAlmacenId() > 0){
+                predicates.add(criteriaBuilder.equal(root.join("almacenProductos")
+                .get("almacen").get("id"), criterials.getAlmacenId()));
+            }
 
             return criteriaBuilder.and(predicates);
         };

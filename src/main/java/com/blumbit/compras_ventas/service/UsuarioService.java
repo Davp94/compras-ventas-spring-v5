@@ -1,6 +1,7 @@
 package com.blumbit.compras_ventas.service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,14 +102,15 @@ public class UsuarioService implements IUsuarioService {
         usuarioRetrieved.setRoles(rolRepository.findAllById(createUsuarioDto.getRoles()));
         usuarioRetrieved.setEmail(createUsuarioDto.getCorreo());
         usuarioRetrieved.setPassword(passwordEncoder.encode(createUsuarioDto.getPassword()));
-        usuarioRetrieved.setNombre(createUsuarioDto.getNombres());
+        usuarioRetrieved.setNombre(createUsuarioDto.getUsername());
         Persona personaRetrieved = personaRepository.findByUsuario(usuarioRetrieved);
         personaRetrieved.setNombres(createUsuarioDto.getNombres());
         personaRetrieved.setApellidos(createUsuarioDto.getApellidos());
         personaRetrieved.setTelefono(createUsuarioDto.getTelefono());
         personaRetrieved.setDireccion(createUsuarioDto.getDireccion());
         personaRetrieved.setNacionalidad(createUsuarioDto.getNacionalidad());
-        personaRetrieved.setFechaNacimiento(LocalDate.parse(createUsuarioDto.getFechaNacimiento()));
+        personaRetrieved.setGenero(createUsuarioDto.getGenero());
+        personaRetrieved.setFechaNacimiento(LocalDate.parse(createUsuarioDto.getFechaNacimiento(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         return UsuarioDto.fromEntityUsuario(usuarioRepository.save(usuarioRetrieved), personaRepository.save(personaRetrieved));
     }
 

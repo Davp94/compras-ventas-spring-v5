@@ -21,6 +21,8 @@ public class UsuarioDto {
 
     private Integer id;
 
+    private String username;
+
     private String nombres;
 
     private String apellidos;
@@ -35,6 +37,8 @@ public class UsuarioDto {
 
     private String fechaNacimiento;
 
+    private String genero;
+
     private List<Integer> roles;
 
     private List<DocumentoDto> documentos;
@@ -42,6 +46,7 @@ public class UsuarioDto {
     public static UsuarioDto fromEntityUsuario(Usuario usuario, Persona persona){
         return UsuarioDto.builder()
         .id(usuario.getId())
+        .username(usuario.getNombre())
         .nombres(persona.getNombres())
         .apellidos(persona.getApellidos())
         .correo(usuario.getEmail())
@@ -49,6 +54,7 @@ public class UsuarioDto {
         .direccion(persona.getDireccion())
         .nacionalidad(persona.getNacionalidad())
         .fechaNacimiento(persona.getFechaNacimiento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+        .genero(persona.getGenero())
         .roles(usuario.getRoles().stream().map(rol->rol.getId()).toList())
         .documentos(persona.getDocumentos().stream().map(DocumentoDto::fromEntity).toList())
         .build();

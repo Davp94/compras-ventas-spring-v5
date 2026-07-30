@@ -82,6 +82,11 @@ public class AlmacenService implements IAlmacenService {
     }
 
     @Override
+    public List<AlmacenDto> getAlmacenesBySucursal(Integer sucursalId) {
+       return almacenRepository.findBySucursalId(sucursalId).stream().map(almacenMapper::toResponseDto).toList();
+    }
+
+    @Override
     public void deleteAlmacen(Integer id) {
         if (!almacenRepository.existsById(id)) {
             throw new ResourceNotFoundException("Almacen", id);

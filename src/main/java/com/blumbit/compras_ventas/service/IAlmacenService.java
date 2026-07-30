@@ -11,6 +11,8 @@ public interface IAlmacenService {
 
     AlmacenDto obtenerAlmacenPorId(Integer id);
 
+    List<AlmacenDto> getAlmacenesBySucursal(Integer sucursalId);
+
     AlmacenDto crearAlmacen(CreateAlmacenDto almacen);
 
     AlmacenDto actualizarAlmacen(Integer id, CreateAlmacenDto almacenActualizado);

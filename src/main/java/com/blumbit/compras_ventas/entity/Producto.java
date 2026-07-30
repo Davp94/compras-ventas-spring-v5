@@ -1,6 +1,7 @@
 package com.blumbit.compras_ventas.entity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,11 +9,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Builder
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name="productos")
 public class Producto { 
 
@@ -44,88 +54,6 @@ public class Producto {
     @ManyToOne
     private Categoria categoria;
 
-    public Producto(Integer id, String nombre, String descripcion, String unidadMedida, String marca,
-            BigDecimal precioVentaActual, String imagen, Boolean estado, Categoria categoria) {
-        this.id = id;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.unidadMedida = unidadMedida;
-        this.marca = marca;
-        this.precioVentaActual = precioVentaActual;
-        this.imagen = imagen;
-        this.estado = estado;
-        this.categoria = categoria;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public String getUnidadMedida() {
-        return unidadMedida;
-    }
-
-    public void setUnidadMedida(String unidadMedida) {
-        this.unidadMedida = unidadMedida;
-    }
-
-    public String getMarca() {
-        return marca;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public BigDecimal getPrecioVentaActual() {
-        return precioVentaActual;
-    }
-
-    public void setPrecioVentaActual(BigDecimal precioVentaActual) {
-        this.precioVentaActual = precioVentaActual;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
-    }
-
-    public Boolean getEstado() {
-        return estado;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
+    @OneToMany(mappedBy = "producto")
+    private List<AlmacenProducto> almacenProductos;
 }

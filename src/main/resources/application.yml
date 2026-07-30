@@ -5,7 +5,7 @@ spring:
         name: compras-ventas
     datasource:
         driver-class-name: org.postgresql.Driver
-        url: jdbc:postgresql://localhost:5432/compras_ventas_v5
+        url: jdbc:postgresql://localhost:5432/compras_ventas_rdb
         username: postgres
         password: 123456
     jpa:

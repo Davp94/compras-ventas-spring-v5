@@ -15,5 +15,7 @@ public interface AlmacenMapper {
     @Mapping(target = "sucursal", ignore = true)
     Almacen toEntity(CreateAlmacenDto request);
 
+    @Mapping(source = "sucursal.id", target = "sucursalId")
+    @Mapping(source = "sucursal.nombre", target = "sucursalNombre")
     AlmacenDto toResponseDto(Almacen almacen);
 }

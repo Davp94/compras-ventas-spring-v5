@@ -60,7 +60,7 @@ public class ProductoService implements IProductoService {
             .totalPages(productoPage.getTotalPages())
             .build();
         } catch (Exception e) {
-            throw new RuntimeException("error paginacion productos");
+            throw new RuntimeException("error paginacion productos", e);
         }
     }
 

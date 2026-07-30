@@ -35,6 +35,11 @@ public class AlmacenController {
         return almacenService.obtenerAlmacenPorId(id);
     }
 
+    @GetMapping("/sucursal/{id}")
+    public List<AlmacenDto> buscarAlmacenPorSucursalId(@PathVariable Integer id) {
+        return almacenService.getAlmacenesBySucursal(id);
+    }
+
     @PostMapping
     public AlmacenDto crearAlmacen(@Valid @RequestBody CreateAlmacenDto almacen) {
         return almacenService.crearAlmacen(almacen);

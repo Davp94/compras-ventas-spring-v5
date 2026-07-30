@@ -54,7 +54,8 @@ public class ProductoController {
         @RequestParam(required = false) String descripcion,
         @RequestParam(required = false) String codigoBarra,
         @RequestParam(required = false) String marca,
-        @RequestParam(required = false) String nombreCategoria
+        @RequestParam(required = false) String nombreCategoria,
+        @RequestParam(required = false) Integer almacenId
     ) {
 
         ProductoFilterCriteria criteria = ProductoFilterCriteria.builder()
@@ -63,6 +64,7 @@ public class ProductoController {
         .codigoBarra(codigoBarra)
         .marca(marca)
         .nombreCategoria(nombreCategoria)
+        .almacenId(almacenId)
         .build();
         PageableRequest<ProductoFilterCriteria> pageableRequest = PageableRequest.<ProductoFilterCriteria>builder()
         .pageNumber(pageNumber)
